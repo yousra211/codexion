@@ -4,6 +4,8 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <pthread.h>
+#include <limits.h>
+#include <string.h>
 
 typedef struct s_data
 {
@@ -20,23 +22,6 @@ typedef struct s_data
 }   t_data;
 
 
-typedef struct s_dongle
-{
-    pthread_mutex_t mutex_dongle;
-    pthread_cond_t  cond_dungle;
-    unsigned long   last_release_time;
-    // int             is_available;
-    t_scheduler     *scheduler;
-    t_data          *data;
-}   t_dongle;
-
-
-typedef struct s_scheduler
-{
-    queue_node      **heap;
-    int             size;
-    int             capacity;
-}   t_scheduler;
 
 typedef struct s_queue
 {
@@ -46,6 +31,24 @@ typedef struct s_queue
 
 }   queue_node;
 
+
+typedef struct s_scheduler
+{
+    queue_node      **heap;
+    int             size;
+    int             capacity;
+}   t_scheduler;
+
+
+typedef struct s_dongle
+{
+    pthread_mutex_t mutex_dongle;
+    pthread_cond_t  cond_dungle;
+    unsigned long   last_release_time;
+    // int             is_available;
+    t_scheduler     *scheduler;
+    t_data          *data;
+}   t_dongle;
 
 typedef struct s_coder
 {

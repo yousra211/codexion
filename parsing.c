@@ -1,11 +1,6 @@
 #include "ft_utils.h"
 #include <stdio.h>
-// int	ft_isdigit(int c)
-// {
-// 	if (c >= '0' && c <= '9')
-// 		return (1);
-// 	return (0);
-// }
+
 
 static int	ft_isvalid(char *str)
 {
@@ -32,7 +27,6 @@ static int	ft_isvalid(char *str)
 	}
 	return (has_digit);
 }
-
 
 
 static int ft_parse_2(char *str)
@@ -63,29 +57,28 @@ int	*ft_parse(int ac, char *argv[], int *args)
 	return (args);
 }
 
+
 char *ft_parse_lst_arg(char *arg, char *scheduler_arg)
 {
 	if (ft_strlen(arg) != 3 && ft_strlen(arg) != 4)
 		return (NULL);
 	
 	if (ft_strlen(arg) == 3)
-		if (arg[0] == 'e' && arg[1] == 'd' && arg[2] == 'f')
-		{
+	{
+		// if (arg[0] == 'e' && arg[1] == 'd' && arg[2] == 'f')
+		if (strcmp(arg, "edf") == 0)
 			scheduler_arg = "edf";
-				return (scheduler_arg);
-		}
 		else
-			return (NULL);
+			scheduler_arg = NULL;
+	}
 
 	if (ft_strlen(arg) == 4)
 	{
-		if (arg[0] == 'f' && arg[1] == 'i' && arg[2] == 'f' && arg[3] == 'o')
-		{
+		// if (arg[0] == 'f' && arg[1] == 'i' && arg[2] == 'f' && arg[3] == 'o')
+		if (strcmp(arg, "fifo") == 0)
 			scheduler_arg = "fifo";
-				return (scheduler_arg);
-		}
 		else
-			return (NULL);		
+			scheduler_arg = NULL;		
 	}
-	
+	return (scheduler_arg);
 }
