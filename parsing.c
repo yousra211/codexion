@@ -45,13 +45,15 @@ static int ft_parse_2(char *str)
 int	*ft_parse(int ac, char *argv[], int *args)
 {
 	int		i;
+	int		parsed;
 
 	i = 1;
 	while (i < ac - 1)
 	{
-		if (ft_parse_2(argv[i]) < 0)
+		parsed = ft_parse_2(argv[i]);
+		if (parsed < 0)
 			return (NULL);
-		args[i - 1] = ft_parse_2(argv[i]);
+		args[i - 1] = parsed;
 		i++;
 	}
 	return (args);
