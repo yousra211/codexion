@@ -1,4 +1,5 @@
 #include "ft_utils.h"
+#include <stdio.h>
 
 int	ft_isdigit(int c)
 {
@@ -7,76 +8,28 @@ int	ft_isdigit(int c)
 	return (0);
 }
 
-int	ft_str_digit(char *str)
+int	ft_isvalid(char *str)
 {
 	int	i;
-	int	flag;
+	int	has_digit;
 
 	i = 0;
-	flag = 0;
-	while (str && str[i])
+	has_digit = 0;
+	while (str[i])
 	{
-		if (!ft_isdigit(str[i]))
+		if (str[i] == ' ')
+			i++;
+		else if ((str[i] == '+')
+			&& ft_isdigit(str[i + 1])
+			&& (i == 0 || str[i - 1] == ' '))
+			i++;
+		else if (ft_isdigit(str[i]))
+		{
+			has_digit = 1;
+			i++;
+		}
+		else
 			return (0);
-		if (ft_isdigit(str[i]))
-			flag = 1;
-		i++;
 	}
-	if (str[i] == '\0' && !flag)
-		return (0);
-	return (1);
-}
-
-
-long	ft_atoi(char *str)
-{
-	int		i;
-	int		signe;
-	long	n;
-
-	i = 0;
-	signe = 1;
-	n = 0;
-	while (str[i] && (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13)))
-		i++;
-	if (str[i] && (str[i] == '+' || str[i] == '-'))
-	{
-		if (str[i] == '-')
-			signe *= -1;
-		i++;
-	}
-	if (!ft_str_digit(str + i))
-		return (LONG_MAX);
-	while (str[i] && ft_isdigit(str[i]))
-	{
-		n = n * 10 + (str[i] - '0');
-		if (n * signe > INT_MAX || n * signe < INT_MIN)
-			return (LONG_MAX);
-		i++;
-	}
-	return (n * signe);
-}
-
-int ft_strlen(char *str)
-{
-	int i;
-
-	i = 0;
-	while(str[i])
-		i++;
-	return (i);
-}
-
-t_data store_my_data(int *args,char *scheduler_arg,t_data my_data)
-{
-	my_data.number_of_coders = args[0];
-	my_data.time_to_burnout = args[1];
-	my_data.time_to_compile = args[2];
-	my_data.time_to_debug = args[3];
-	my_data.time_to_refactor = args[4];
-	my_data.number_of_compiles_required = args[5];
-	my_data.dongle_cooldown = args[6];
-	my_data.scheduler = scheduler_arg;
-
-	return (my_data);
+	return (has_digit);
 }

@@ -60,12 +60,11 @@ typedef struct s_coder
     pthread_t		thread;
 }   t_coder;
 
-long    ft_atoi(char *str);
-int     *ft_parse(int ac, char *argv[], int *args);
-int     ft_str_digit(char *str);
+
 int     ft_isdigit(int c);
-int     ft_strlen(char *str);
-char    *ft_parse_lst_arg(char *arg, char *scheduler_arg);
-t_data  store_my_data(int *args,char *scheduler_arg,t_data my_data);
+int	    ft_isvalid(char *str);
+
+yes it would be like this data->simulation_start_time = get_current_time();
+
 
 #endif
