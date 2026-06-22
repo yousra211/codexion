@@ -45,7 +45,6 @@ typedef struct s_dongle
     pthread_mutex_t mutex_dongle;
     pthread_cond_t  cond_dungle;
     unsigned long   last_release_time;
-    // int             is_available;
     t_scheduler     *scheduler;
     t_data          *data;
 }   t_dongle;
@@ -54,6 +53,7 @@ typedef struct s_coder
 {
     int             id;
     unsigned long   last_compile_start;
+    int             number_of_compiles;
     t_dongle        *left_dongle;
     t_dongle        *right_dongle;
     t_data          *shared_data;
@@ -63,8 +63,6 @@ typedef struct s_coder
 
 int     ft_isdigit(int c);
 int	    ft_isvalid(char *str);
-
-yes it would be like this data->simulation_start_time = get_current_time();
 
 
 #endif
