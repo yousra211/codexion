@@ -1,42 +1,7 @@
-the coder thread i already have it here
-typedef struct s_coder
-{
-    int             id;
-    unsigned long   last_compile_start;
-    int             compilating_number;
-    t_dongle        *left_dongle;
-    t_dongle        *right_dongle;
-    t_data          *shared_data;
-    pthread_t		thread;
-}   t_coder;
-How many dongles should be allocated? the number of coders as each one has a dongle
+You still haven’t defined:
 
-since the subject says Coder number 1 sits next to coder number number_of_coders.
-Any other coder number N sits between coder number N - 1 and coder number N
-+ 1. then the coder can access fork i and (i - 1) % n or fork i and (i + 1) % n
-i prefer to beging from 1 not 0 for coders and dongles
-for this Think about whether is_available is enough to distinguish:
 
-held
-free but cooling down
-free and usable
-i removed this and for dongle held the mutex will be locked . and we can lock it down after (compilating time + cooldown time)
-typedef struct s_dongle
-{
-    pthread_mutex_t mutex_dongle;
-    pthread_cond_t  cond_dungle;
-    unsigned long   last_release_time;
-    t_scheduler     *scheduler;
-    t_data          *data;
-}   t_dongle;
 
-typedef struct s_coder
-{
-    int             id;
-    unsigned long   last_compile_start;
-    int             compilating_number;
-    t_dongle        *left_dongle;
-    t_dongle        *right_dongle;
-    t_data          *shared_data;
-    pthread_t		thread;
-}   t_coder;
+who owns scheduling decisions?
+
+i think the monitor is who owns them
