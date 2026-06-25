@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   inits.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yhamdaou <yhamdaou@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/06/25 12:44:40 by yhamdaou          #+#    #+#             */
+/*   Updated: 2026/06/25 12:45:32 by yhamdaou         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_utils.h"
 
 
@@ -24,7 +36,6 @@ int	data_init(int ac, char *av[], t_data *my_data)
 		return(write(2, "the number of arguments is wrong!", 33), 0);
 	if (!validate_args(av))
 		return (0);
-	
 	my_data->number_of_coders = atoi(av[1]);
 	my_data->time_to_burnout = atoi(av[2]);
 	my_data->time_to_compile = atoi(av[3]);
@@ -38,7 +49,6 @@ int	data_init(int ac, char *av[], t_data *my_data)
 		my_data->scheduler_type = FIFO;
 	else
 		my_data->scheduler_type = EDF;
-	
 	my_data->stop_simulation = 0;
 	my_data->simulation_start_time = get_current_time();
 	return (1);
@@ -47,17 +57,17 @@ int	data_init(int ac, char *av[], t_data *my_data)
 
 void    dongles_cleanup(t_data *data, int initialized_count)
 {
-    int i;
+	int i;
 
-    i = 0;
-    while (i < initialized_count)
-    {
-        pthread_mutex_destroy(&(data->dongles[i].mutex_dongle));
-        pthread_cond_destroy(&(data->dongles[i].cond_dongle));
-        i++;
-    }
-    free(data->dongles);
-    data->dongles = NULL;
+	i = 0;
+	while (i < initialized_count)
+	{
+		pthread_mutex_destroy(&(data->dongles[i].mutex_dongle));
+		pthread_cond_destroy(&(data->dongles[i].cond_dongle));
+		i++;
+	}
+	free(data->dongles);
+	data->dongles = NULL;
 }
 
 
@@ -89,7 +99,7 @@ int     dongles_init(t_data *data)
 		i++;
 	}
 	scheduler_init(&data->dongles[i].scheduler,
-               data->number_of_coders);
+			   data->number_of_coders);
 	return (1);
 }
 
@@ -123,10 +133,10 @@ int     coders_init(t_data *data)
 
 int scheduler_init(t_scheduler *scheduler, int capacity)
 {
-	scheduler->heap = malloc(sizeof(queue_node) * capacity);
+	scheduler->heap = malloc(sizeof(t_queue_node) * capacity);
 	if (!scheduler->heap)
 		return(0);
-    scheduler->size = 0;
-    scheduler->capacity = capacity;
-    return (1);	
+	scheduler->size = 0;
+	scheduler->capacity = capacity;
+	return (1);	
 }
