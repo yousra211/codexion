@@ -2,11 +2,24 @@
 
 int		higher_priority(t_queue_node *a, t_queue_node *b)
 {
-	if (a->coder->shared_data->scheduler_type = EDF)
+	if (a->coder->shared_data->scheduler_type == EDF)
 	{
 		if ((a->coder->last_compile_start + a->coder->shared_data->time_to_burnout)
 		> (b->coder->last_compile_start + b->coder->shared_data->time_to_burnout))
+			return (1);
+		else if ((a->coder->last_compile_start + a->coder->shared_data->time_to_burnout)
+		< (b->coder->last_compile_start + b->coder->shared_data->time_to_burnout))
+			return (0);
 	}
+	if (a->request_timestamp > b->request_timestamp)
+		return (1);
+	else if (a->request_timestamp < b->request_timestamp)
+		return(0);
+	if (a->coder->id > b->coder->id)
+		return (1);
+	else if (a->coder->id < b->coder->id)
+		return (0);
+	return (0);
 	
 }
 
@@ -18,7 +31,7 @@ void		heapify_up(t_scheduler *scheduler, int index)
 	parent_index = -1;
 	// if (index == 0)
 	// 	break;
-	while(parent_index != 0)
+	while(index > 0)
 	{
 		parent_index = (index - 1) / 2;
 		if(higher_priority(&(*scheduler).heap[parent_index], &(*scheduler).heap[index]) == 1)
