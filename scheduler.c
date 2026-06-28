@@ -1,5 +1,11 @@
 #include "ft_utils.h"
 
+int scheduler_is_empty(t_scheduler *scheduler)
+{
+    return (scheduler->size == 0);
+}
+
+
 int		higher_priority(t_queue_node *a, t_queue_node *b)
 {
 	unsigned long deadline_a;
@@ -42,9 +48,22 @@ void		heapify_up(t_scheduler *scheduler, int index)
 			swap(&scheduler->heap[parent_index], &scheduler->heap[index]);
 		else
 			break;
-		index = parent_index;
+			index = parent_index;
+		}
 	}
+
+int		scheduler_insert(t_coder *coder, t_scheduler *scheduler)
+{
+
+	if ((*scheduler).size + 1 > (*scheduler).capacity)
+		return (0);
+	scheduler->heap[(*scheduler).size].coder = coder;
+	scheduler->heap[(*scheduler).size].request_timestamp = get_current_time();
+	heapify_up(scheduler, (*scheduler).size);
+	(*scheduler).size++;
+	return (1);
 }
+
 
 void		heapify_down(t_scheduler *scheduler)
 {
@@ -79,29 +98,29 @@ void		heapify_down(t_scheduler *scheduler)
 	}
 }
 
+//scheduler_pop() is never called on an empty heap e.d scheduler.size =0
 t_queue_node		scheduler_pop(t_scheduler *scheduler)
 {
 	t_queue_node winner;
 
-	winner = NULL;
+	winner = scheduler->heap[0];
+	scheduler->heap[0] = scheduler->heap[scheduler->size - 1];
+	scheduler->size--;
 	if (scheduler->size > 0)
-	{
-		winner = scheduler->heap[0];
-		scheduler->heap[0] = scheduler->heap[scheduler->size - 1];
-		scheduler->size--;
 		heapify_down(scheduler);
-	}
+	
 	return (winner);
 }
 
-int		scheduler_insert(t_coder *coder, t_scheduler *scheduler)
+t_queue_node		scheduler_peek(t_scheduler *scheduler)
 {
+	return (scheduler->heap[0]);
+}
 
-	if ((*scheduler).size + 1 > (*scheduler).capacity)
-		return (0);
-	scheduler->heap[(*scheduler).size].coder = coder;
-	scheduler->heap[(*scheduler).size].request_timestamp = get_current_time();
-	heapify_up(scheduler, (*scheduler).size);
-	(*scheduler).size++;
-	return (1);
+void scheduler_destroy(t_scheduler *scheduler)
+{
+    free(scheduler->heap);
+    scheduler->heap = NULL;
+    scheduler->size = 0;
+    scheduler->capacity = 0;
 }
