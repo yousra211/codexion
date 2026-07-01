@@ -6,7 +6,7 @@
 /*   By: yhamdaou <yhamdaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/25 12:49:22 by yhamdaou          #+#    #+#             */
-/*   Updated: 2026/06/30 20:54:26 by yhamdaou         ###   ########.fr       */
+/*   Updated: 2026/07/01 19:41:39 by yhamdaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ typedef struct s_data
 	unsigned long		simulation_start_time;
 	t_coder				*coders;
 	t_dongle			*dongles;
+	// pthread_mutex_t		stop_mutex;
 }	t_data;
 
 int				ft_isdigit(int c);

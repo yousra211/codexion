@@ -6,7 +6,7 @@
 /*   By: yhamdaou <yhamdaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/28 18:10:04 by yhamdaou          #+#    #+#             */
-/*   Updated: 2026/07/01 15:41:43 by yhamdaou         ###   ########.fr       */
+/*   Updated: 2026/07/01 19:53:55 by yhamdaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ void	*routine(void *arg)
 		scheduler_pop(coder->left_dongle->scheduler);
 		owner = winner;
 		pthread_mutex_unlock(&(coder->left_dongle->mutex_dongle));
+		usleep(coder->shared_data->time_to_compile);
 	}
 }
 
