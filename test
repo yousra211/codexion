@@ -1,0 +1,28 @@
+he mutex does not mean "I own the dongle."
+
+The mutex only means:
+
+"I am temporarily accessing the dongle's shared data safely."
+
+Those are two completely different things.
+
+Think of it like this:
+
+A bank has one door.
+
+Many customers can enter the bank one at a time to talk to the receptionist.
+
+Entering the bank does not mean you own the bank.
+
+Similarly:
+
+lock mutex
+
+look at scheduler
+look at cooldown
+possibly insert request
+possibly wait
+
+unlock mutex
+
+None of that means you have acquired the dongle.

@@ -6,7 +6,7 @@
 /*   By: yhamdaou <yhamdaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/25 12:49:22 by yhamdaou          #+#    #+#             */
-/*   Updated: 2026/06/28 18:10:10 by yhamdaou         ###   ########.fr       */
+/*   Updated: 2026/06/30 20:54:26 by yhamdaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,5 +84,7 @@ int				coders_init(t_data *data);
 int				dongles_init(t_data *data);
 unsigned long	get_current_time(void);
 int				scheduler_init(t_scheduler *scheduler, int capacity);
+t_queue_node		scheduler_peek(t_scheduler *scheduler);
+
 
 #endif
