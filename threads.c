@@ -6,7 +6,7 @@
 /*   By: yhamdaou <yhamdaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/28 18:10:04 by yhamdaou          #+#    #+#             */
-/*   Updated: 2026/07/01 19:53:55 by yhamdaou         ###   ########.fr       */
+/*   Updated: 2026/07/02 16:56:26 by yhamdaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,25 +71,31 @@ void	*routine(void *arg)
 {
 	t_coder *coder;
 	t_queue_node winner;
-	t_coder *owner;
+	// t_coder *owner;
 	
-	owner = NULL;
+	// owner = NULL;
 	coder = (t_coder *)arg;
 	while(coder->shared_data->stop_simulation == 0)
 	{
 		pthread_mutex_lock(&(coder->left_dongle->mutex_dongle));
 		scheduler_insert(coder, coder->left_dongle->scheduler);
-		winner = scheduler_peek(coder->left_dongle->scheduler);
 		// owner = winner->coder;
 		// scheduler_peek(coder->left_dongle->scheduler);
-		while (coder != winner->coder ||
-		owner != NULL ||
+		while (coder != winner.coder ||
+		coder->left_dongle->owner != NULL ||
 		get_current_time() - coder->left_dongle->last_release_time < coder->shared_data->dongle_cooldown)
 			pthread_cond_wait(&(coder->left_dongle->cond_dongle), &(coder->left_dongle->mutex_dongle));
+		winner = scheduler_peek(&coder->left_dongle->scheduler);
 		scheduler_pop(coder->left_dongle->scheduler);
-		owner = winner;
+		coder->left_dongle->owner = winner.coder;
+		coder->left_dongle->owner = NULL;
+		coder->left_dongle->last_release_time = get_current_time();
 		pthread_mutex_unlock(&(coder->left_dongle->mutex_dongle));
 		usleep(coder->shared_data->time_to_compile);
+		// coder->left_dongle->owner = NULL;
+		// coder->left_dongle->last_release_time = get_current_time();
+		usleep(coder->shared_data->time_to_debug);
+		usleep(coder->shared_data->time_to_refactor);
 	}
 }
 

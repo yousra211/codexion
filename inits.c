@@ -6,7 +6,7 @@
 /*   By: yhamdaou <yhamdaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/25 12:44:40 by yhamdaou          #+#    #+#             */
-/*   Updated: 2026/06/25 12:45:32 by yhamdaou         ###   ########.fr       */
+/*   Updated: 2026/07/02 16:23:38 by yhamdaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ int     dongles_init(t_data *data)
 		}
 		data->dongles[i].last_release_time = 0;
 		data->dongles[i].data = data;
+		data->dongles[i].owner = NULL;
 		i++;
 	}
 	scheduler_init(&data->dongles[i].scheduler,

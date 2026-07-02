@@ -6,7 +6,7 @@
 /*   By: yhamdaou <yhamdaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/25 12:49:22 by yhamdaou          #+#    #+#             */
-/*   Updated: 2026/07/01 19:41:39 by yhamdaou         ###   ########.fr       */
+/*   Updated: 2026/07/02 16:22:23 by yhamdaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef struct s_dongle
 	unsigned long	last_release_time;
 	t_scheduler		scheduler;
 	struct s_data	*data;
+	struct s_coder	*owner;
 }	t_dongle;
 
 typedef struct s_coder
